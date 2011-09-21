@@ -13,7 +13,11 @@ echo "Verifying local requirements"
 hash ruby 2>&- || { echo >&2 "ruby is required but is not installed.  Aborted.."; exit 1; }
 hash gem 2>&- || { echo >&2 "gem is required but is not installed.  Aborted.."; exit 1; }
 hash ogr2ogr 2>&- || { 
-	echo >&2 "ogr2ogr is required but is not installed. Install gdal (linux/mac platforms): \"sudo [apt-get|port] install gdal-bin\". Aborting."; 
+	echo >&2 "ogr2ogr is required but is not installed."
+	echo " Install gdal:" 
+	echo " linux: sudo apt-get install gdal-bin"
+	echo " mac: brew install geos --use-gcc; sudo brew install gdal"
+	echo " Aborting."
 	exit 1; 
 }
 
