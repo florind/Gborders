@@ -1,14 +1,17 @@
-require 'mysql'
+require 'rubygems'
+require 'sqlite3'
 require 'geo_ruby'
 
 include GeoRuby::SimpleFeatures
 
-def generate_js_border_overlay(output_file)
+def generate_js_border_overlay(db_file, output_file, region)
   factory = GeometryFactory.new
   wkt_parser = EWKTParser.new(factory)
 
-  borderDB = Mysql::new('localhost', 'root', '', 'bordersdb')
-  res = borderDB.query("select name, iso2, AsText(ogc_geom), region from world_boundaries where region=150")
+  borderDB = SQLite3::Database::new(db_file)
+
+
+  res = borderDB.query("select name, iso2, WKT_GEOMETRY, region from world_boundaries where region=" + region)
   encoded_polygon_desc = "";
   remove_warnings_layer = "function removeBordersOverlay() {\n"
   add_warnings_layer = "function addBordersOverlay() {\n"
@@ -40,28 +43,30 @@ def generate_js_border_overlay(output_file)
     color: '#2956B2'\n\
     });"
   end
-  
-  
+
+
   add_warnings_layer << "\n}"
   remove_warnings_layer << "\n}"
   init_borders << "\n}"
   File.open(output_file, 'w') {|f|
+
     f.write(encoded_polygon_desc + "\n")
     f.write(add_warnings_layer + "\n")
     f.write(remove_warnings_layer + "\n")
     f.write(init_borders)
   }
+	puts "Success. Check the generated JavaScript file " + output_file
 end
 
 def encode_by_reducing_pointcount(points)
   dlat = plng = plat = dlng = 0
   res = ["",""]
   index = -1
-  for point in points 
+  for point in points
     index += 1
     #straight point reduction algorithm: use every 5th point only
     #use all points if their total count is less than 16
-    next if index.modulo(5) != 0 && points.size > 16 
+    next if index.modulo(5) != 0 && points.size > 16
     late5 = (point.y * 1e5).floor
     lnge5 = (point.x * 1e5).floor
     dlat = late5 - plat;
@@ -91,4 +96,5 @@ def encode_number(num)
   return res
 end
 
-generate_js_border_overlay("/tmp/bordersOverlay.js")
+generate_js_border_overlay(ARGV[0], ARGV[1], ARGV[2])
+
