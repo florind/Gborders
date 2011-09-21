@@ -1,7 +1,7 @@
 Gborders: Generating a borders overlay in Google Maps
 =============
 
-This project is based on the  work I have done here http://blog.newsplore.com/2009/02/22/spincloud-labs-political-boundaries-overlay-in-google-maps-part-1 and here http://blog.newsplore.com/2009/03/01/political-boundaries-overlay-google-maps-2 for adding a live border overlay on Google Maps. iSee the results in action in http://spincloud.com as you browse the Meteoalarm layer (http://blog.newsplore.com/?p=382)
+This project is based on the  work I have done here http://blog.newsplore.com/2009/02/22/spincloud-labs-political-boundaries-overlay-in-google-maps-part-1 and here http://blog.newsplore.com/2009/03/01/political-boundaries-overlay-google-maps-2 for adding a live border overlay on Google Maps. See the results in action in http://spincloud.com as you browse the Meteoalarm layer (http://blog.newsplore.com/?p=382)
 
 
 Prerequisites
@@ -10,6 +10,12 @@ Prerequisites
 * ruby 1.8
 * rubygems
 * ogr2ogr (part of the gdal package http://www.gdal.org/)
+
+Example
+=============
+
+	./make-borders.sh 150
+	
 
 How does it work
 =============
