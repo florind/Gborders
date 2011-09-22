@@ -16,11 +16,14 @@ Example
 
 	./make-borders.sh 150
 	
+generates the country borders for Europe
+
+Example showing the live border layer for Spain: http://blog.newsplore.com/wp-content/uploads/2009/03/embedmap.html
 
 How does it work
 =============
 
-The provided shell script downloads a borders file from  http://thematicmapping.org/, converts it into a sqlite db file then a ruby script processes this database to extract the border polygons and generates a JavaScript.
+The provided shell script downloads a borders file from  http://thematicmapping.org/, converts it into a sqlite db file then a ruby script processes this database to extract the border polygons and generates a JavaScript file ready to embed in your Google Maps page.
 
 Add the resulted JS file in your html:
 
@@ -33,6 +36,10 @@ then call these two functions in your JS code after initializing the GMap2 objec
 
 A live example is shown here: http://blog.newsplore.com/wp-content/uploads/2009/03/embedmap.html
 
+Performance
+=============
+
+Given that there is a large number of polygon points, using all of them to render the borders incurrs a performance penalty on the browser. To address this I devised a simple "straight point reduction" technique that reduces the total number of polygon points and increases the performance when rendering the borders. See http://blog.newsplore.com/2009/03/01/political-boundaries-overlay-google-maps-2 for a detailed explanation. 
 
 Limitations
 =============
