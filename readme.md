@@ -10,6 +10,7 @@ Prerequisites
 * ruby 1.8
 * rubygems
 * ogr2ogr (part of the gdal package http://www.gdal.org/)
+* Your Google Maps v2.0. 
 
 Example
 =============
@@ -47,3 +48,5 @@ Limitations
 Currently the generator is limited to whole regions and not individual countries. It is not difficult to add this option if needed, the Ruby script uses a single SQL query for the border selection.
 
 The overlay color is fixed to translucent black and not externalized.
+
+The overlay works with GMap2 API. Ivesvdf has contributed with a generator for V3 here https://gist.github.com/1124959
